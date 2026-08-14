@@ -1,0 +1,282 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Swiss Targets</title></head>
+<style>
+:root{
+  --paper:#FAFAF7; --ink:#1E1E1C; --muted:#71716A; --line:#E5E5DE; --card:#FFFFFF;
+  --link:#B23A2C; --good:#2E7D4F;
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#151514; --ink:#EAEAE5; --muted:#9C9C93; --line:#2C2C29; --card:#1D1D1B;
+  --link:#E0684F; --good:#5FBF8A;
+}}
+:root[data-theme="dark"]{
+  --paper:#151514; --ink:#EAEAE5; --muted:#9C9C93; --line:#2C2C29; --card:#1D1D1B;
+  --link:#E0684F; --good:#5FBF8A;
+}
+:root[data-theme="light"]{
+  --paper:#FAFAF7; --ink:#1E1E1C; --muted:#71716A; --line:#E5E5DE; --card:#FFFFFF;
+  --link:#B23A2C; --good:#2E7D4F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font:15px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:30px 20px 80px}
+h1{font-size:26px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+.sub b{color:var(--ink)}
+.controls{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--ink);padding-top:14px;margin-bottom:6px}
+.crow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input[type=search]{flex:1 1 260px;padding:8px 12px;border:1px solid var(--line);border-radius:4px;
+  background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+input[type=search]:focus{outline:2px solid var(--link);outline-offset:1px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:4px;
+  padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.klabel{font-size:13px;color:var(--muted);min-width:88px}
+.count{color:var(--muted);font-size:13px;margin:12px 0 0}
+h2{font-size:17px;font-weight:700;margin:30px 0 4px}
+.gsub{font-size:13px;color:var(--muted);margin:0 0 8px;max-width:80ch}
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:960px;font-size:13.5px;table-layout:fixed;margin-bottom:6px}
+th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:6px 10px 6px 4px;
+  border-bottom:1px solid var(--ink);white-space:nowrap}
+td{padding:8px 10px 8px 4px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45;overflow-wrap:break-word}
+td.rk{color:var(--muted);font-variant-numeric:tabular-nums;width:30px}
+td.co{font-weight:700}
+td.co a{color:var(--link);text-decoration:none;font-weight:400;font-size:12.5px;display:block}
+td.co a:hover{text-decoration:underline}
+td.ind{color:var(--muted);font-size:12.5px}
+
+
+td.loc{color:var(--muted);font-size:12.5px}
+td.gd{white-space:nowrap;color:var(--muted)}
+td.jb{text-align:center;color:var(--good);font-weight:700;white-space:nowrap;cursor:help}
+tr.main{cursor:pointer}
+tr.main:hover td{background:var(--card)}
+tr.det{display:none}
+tr.main[aria-expanded="true"] + tr.det{display:table-row}
+tr.det td{background:var(--card);padding:12px 16px;font-size:13.5px}
+tr.det dl{display:grid;grid-template-columns:120px 1fr;gap:5px 14px;margin:0}
+tr.det dt{color:var(--muted)}
+tr.det dd{margin:0}
+tr.det a{color:var(--link);text-decoration:none}
+tr.det a:hover{text-decoration:underline}
+.empty{padding:36px 0;color:var(--muted);text-align:center}
+.rx{border:none;background:none;padding:1px 2px;font-size:15px;cursor:pointer;filter:grayscale(1);opacity:.45}
+.rx.on,.rx:hover{filter:none;opacity:1}
+.rx .n{font-size:11px;color:var(--muted);margin-left:1px}
+@media(prefers-reduced-motion:no-preference){tr.det td{animation:in .14s ease}@keyframes in{from{opacity:0}to{opacity:1}}}
+</style>
+
+<div class="wrap">
+<h1>Swiss Targets</h1>
+<p class="sub"><b>A curated shortlist of companies and organizations in the greater Zurich area (within ~1.5h) with high growth potential and attractive senior leadership mandates</b>: growth and commercial leadership; strategy, M&amp;A and transformation; AI and product; investment; and foundation and education roles. Grouped by company type. The rank reflects an assessment of future growth potential; the briefcase icon marks organizations with relevant live openings (also a filter). How to use this page: click any row to open the company card (ownership, deal history, benefits, live openings). To the left of each company you can react: click the heart if you can make an introduction there, the star if you think this is a great fit. Your name is asked once and shown with your reaction; click again to remove it. Compiled 14 August 2026; LinkedIn data (alumni presence, hiring trends) added the same day.</p>
+
+<div class="controls">
+  <div class="crow">
+    <input type="search" id="q" placeholder="Search company, industry, role, ownership…" aria-label="Search">
+  </div>
+  <div class="crow" id="types">
+    <span class="klabel">Company type</span>
+    <button class="chip" data-e="all" aria-pressed="true">All</button>
+    <button class="chip" data-e="corp" aria-pressed="false">Corporates</button>
+    <button class="chip" data-e="sme" aria-pressed="false">Family SMEs &amp; mid-caps</button>
+    <button class="chip" data-e="ai" aria-pressed="false">AI companies</button>
+    <button class="chip" data-e="scale" aria-pressed="false">Startups &amp; scale-ups</button>
+    <button class="chip" data-e="inv" aria-pressed="false">Investors</button>
+    <button class="chip" data-e="fnd" aria-pressed="false">Foundations</button>
+  </div>
+  <div class="crow" id="inds">
+    <span class="klabel">Industry</span>
+    <button class="chip" data-i="all" aria-pressed="true">All</button>
+    <button class="chip" data-i="Energy & grid" aria-pressed="false">Energy &amp; grid</button>
+    <button class="chip" data-i="Data centers" aria-pressed="false">Data centers</button>
+    <button class="chip" data-i="Industrial & automation" aria-pressed="false">Industrial &amp; automation</button>
+    <button class="chip" data-i="Semiconductors & optics" aria-pressed="false">Semiconductors &amp; optics</button>
+    <button class="chip" data-i="Software & AI" aria-pressed="false">Software &amp; AI</button>
+    <button class="chip" data-i="Consumer & food" aria-pressed="false">Consumer &amp; food</button>
+    <button class="chip" data-i="Buildings & construction" aria-pressed="false">Buildings &amp; construction</button>
+    <button class="chip" data-i="Commerce & logistics" aria-pressed="false">Commerce &amp; logistics</button>
+    <button class="chip" data-i="Healthcare" aria-pressed="false">Healthcare</button>
+    <button class="chip" data-i="Education" aria-pressed="false">Education</button>
+    <button class="chip" data-i="Investment" aria-pressed="false">Investment</button>
+  </div>
+  <div class="crow" id="rolesf">
+    <span class="klabel">Potential role</span>
+    <button class="chip" data-g="all" aria-pressed="true">All</button>
+    <button class="chip" data-g="1" aria-pressed="false">Growth, commercial &amp; strategy</button>
+    <button class="chip" data-g="2" aria-pressed="false">Strategy, M&amp;A &amp; transformation</button>
+    <button class="chip" data-g="3" aria-pressed="false">AI &amp; product</button>
+    <button class="chip" data-g="4" aria-pressed="false">Investment &amp; deals</button>
+    <button class="chip" data-g="5" aria-pressed="false">Foundation &amp; education</button>
+  </div>
+  <div class="crow">
+    <span class="klabel">Show</span>
+    <button class="chip" id="jobsonly" aria-pressed="false">Live openings only</button>
+  </div>
+</div>
+
+<div class="count" id="count"></div>
+<div id="list"></div>
+</div>
+
+<script>
+const ETYPES={corp:["Corporates","Listed or large private groups that hire senior strategy, M&A, transformation and growth leadership through established channels."],
+sme:["Family SMEs & mid-caps","Family- or founder-owned companies, mostly hidden champions with structural tailwinds (grid, data centers, automation, energy). Senior mandates here are usually shaped directly with the owners."],
+ai:["AI companies","Frontier AI labs with Zurich research offices."],
+scale:["Startups & scale-ups","Venture-backed companies (minimum ~$10m raised) with exceptional growth potential."],
+inv:["Investors","PE funds and family offices doing direct deals; relevant roles are investment, value creation and operating-partner positions, not wealth management."],
+fnd:["Foundations","Professional foundations, with a focus on education."]};
+const EORDER=["sme","corp","ai","scale","inv","fnd"];
+const GSHORT={1:"Growth, commercial & strategy",2:"Strategy & M&A",3:"AI & product",4:"Investment",5:"Foundation & education"};
+const D=[
+{n:"OpenAI Zurich",u:"https://openai.com/careers/",g:3,e:"ai",p:1,ind:"Software & AI",d:"OpenAI's Swiss research office (since Dec 2024), focused on multimodal foundation models",t:"AI lab",l:"Zurich",km:15,rev:"n/d",emp:"small, growing",o:"OpenAI",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/openai/",lk:"Alumni counts not meaningful at global company level; Zurich research office actively expanding",ben:"Salary: research bands typically CHF 300k+",jn:"Zurich currently posts research roles only (multimodal); European GTM sits in London/Dublin/Paris. Watch for expansion"},
+{n:"Anthropic Zurich",u:"https://www.anthropic.com/careers",g:3,e:"ai",p:2,ind:"Software & AI",d:"Anthropic's third European office (since Feb 2025), frontier pre-training research under Neil Houlsby",t:"AI lab",l:"Zurich",km:15,rev:"n/d",emp:"small, growing",o:"Anthropic",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/anthropicresearch/",lk:"Alumni counts not meaningful at global company level; Zurich research office actively expanding",ben:"Salary: published Zurich research band CHF 280-680k",jn:"Zurich posts research roles; commercial roles for Europe sit in London/Dublin and new Paris/Munich/Milan offices"},
+{n:"Google Zurich (incl. DeepMind)",u:"https://careers.google.com",g:3,e:"ai",p:3,ind:"Software & AI",d:"Google's largest development hub outside the US (~5,000 people); DeepMind's fastest-growing research location",t:"Corporate AI hub",l:"Zurich",km:15,rev:"n/d",emp:"~5,000 (Zurich)",o:"Alphabet",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/google/",lk:"Alumni counts not meaningful at global scale; DeepMind Zurich is its fastest-growing research location",gdd:"4.3/5 company-wide",ben:"Salary: top of market; benefits well above statutory",jn:"Continuous hiring across product and strategy; roles fill fast"},
+{n:"Weidmann",u:"https://www.weidmann-group.com",g:1,e:"sme",p:4,ind:"Energy & grid",d:"World leader in transformerboard insulation; bottleneck component in the global transformer shortage",t:"Family mid-cap",l:"Rapperswil-Jona",km:30,rev:"CHF 400-500m (est.)",emp:"~4,000",o:"Family-owned, 4th generation",ma:"Divested diagnostics (2023) and fiber-optics unit (2024) to focus core; CHF 200m capacity expansion",f:"Heinrich Weidmann Stiftung: charitable, education and scholarships",li:"https://www.linkedin.com/company/weidmann-electrical-technology/",lk:"No McKinsey alumni, 1 INSEAD alum; 49 new hires Jul 2026, hiring up ~50% over 6 months, business development +11% YoY",ben:"No published data; assume market average",jn:"No relevant openings (Aug 2026); senior mandates shaped with the owners"},
+{n:"Evatec",u:"https://evatecnet.com",g:1,e:"sme",p:5,ind:"Semiconductors & optics",d:"Thin-film deposition systems for advanced chip packaging; private semicap champion",t:"Private mid-cap",l:"Trübbach",km:60,rev:"n/d",emp:"~600",o:"Private since 2004 MBO",ma:"None found",f:"n/d",li:"https://www.linkedin.com/company/evatec-ag/",lk:"No McKinsey/INSEAD alumni; 28 new hires Jul 2026; operations +16%, engineering +10% YoY",gdd:"3.5/5 (19 reviews)",ben:"No published data; assume market average"},
+{n:"R&M (Reichle & De-Massari)",u:"https://www.rdm.com",g:1,e:"sme",p:6,ind:"Data centers",d:"Family-owned data center fiber cabling, racks and DCIM software; strong Middle East presence",t:"Family mid-cap",l:"Wetzikon",km:20,rev:"~CHF 300m",emp:"~1,000+",o:"100% Reichle family (2nd generation)",ma:"Tecnosteel, Italy (2022)",f:"n/d",li:"https://www.linkedin.com/company/reichle-%26-de-massari/",lk:"1 INSEAD alum (CH); 55 new hires Jul 2026, hiring up ~60% over 6 months",gdd:"4.2/5 (29 reviews)",ben:"No published data; assume market average",jn:"Only R&D engineering posted (Aug 2026)"},
+{n:"Unique",u:"https://www.unique.ai",g:3,e:"scale",p:7,ind:"Software & AI",d:"Agentic AI workforce for banks and asset managers (Pictet, LGT, SIX as clients); $53m raised",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"~100+",o:"Founder-led; CommerzVentures, DN Capital, Pictet",ma:"n/d",f:"n/d",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Maxon",u:"https://www.maxongroup.com",g:1,e:"sme",p:8,ind:"Industrial & automation",d:"Precision drives inside surgical robots, cobots and aerospace (Mars rovers)",t:"Family mid-cap",l:"Sachseln",km:60,rev:"CHF 595m (2024)",emp:"~3,000",o:"Braun family majority",ma:"Synapticon minority stake (2025)",f:"n/d",li:"https://www.linkedin.com/company/maxon/",lk:"2 INSEAD alumni; engineering, QA and customer-success headcount growing",gdd:"4.0/5 (~21 reviews)",ben:"No published data; assume market average",jn:"No relevant openings (Aug 2026)"},
+{n:"ANYbotics",u:"https://www.anybotics.com",g:1,e:"scale",p:9,ind:"Industrial & automation",d:"Autonomous four-legged inspection robots (ETH spin-off); ~$130m raised, ~200 robots deployed",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"~250",o:"VC-backed (Qualcomm Ventures, NGP Capital, Walden Catalyst, TDK Ventures)",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/anybotics/",lk:"2 ex-McKinsey and 3 INSEAD alumni: strong for its size",gdd:"4.2/5 (19 reviews)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Terralayr",u:"https://terralayr.com",g:1,e:"scale",p:10,ind:"Energy & grid",d:"Grid-scale battery storage platform (flexibility as a service); over €269m raised incl. Eurazeo",t:"Scale-up",l:"Zug",km:30,rev:"n/d",emp:"growing",o:"Founder-led; Eurazeo, Creandum, Earlybird",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/terralayr/",lk:"1 ex-McKinsey (Berlin)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"DeepJudge",u:"https://www.deepjudge.ai",g:3,e:"scale",p:11,ind:"Software & AI",d:"AI knowledge search for law firms (ex-Google founders); $52m raised, ~$300m valuation",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"growing",o:"Founder-led; Felicis, Coatue",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/deepjudge/",lk:"3 INSEAD alumni (Zurich, London, Paris)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Optotune",u:"https://www.optotune.com",g:3,e:"scale",p:12,ind:"Semiconductors & optics",d:"Tunable optics ETH spin-off consolidating its niche; ~$48m raised",t:"Scale-up",l:"Dietikon",km:20,rev:"$25-100m (est.)",emp:"~160",o:"Founder-led",ma:"NEXTLENS assets (2024)",f:"n/d",li:"https://www.linkedin.com/company/optotune/",lk:"No McKinsey/INSEAD alumni found",gdd:"3.2/5 (30 reviews)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed",jn:"Board shows engineering and mid-level sales roles (Aug 2026)"},
+{n:"Constructor Group",u:"https://constructor.org",g:3,e:"scale",p:13,ind:"Education",d:"Education and tech group (universities, learning platforms), acquisitive",t:"Education group",l:"Schaffhausen",km:40,rev:"n/d",emp:"n/d",o:"Founder-led (Serg Bell)",ma:"Acquisitive in education assets",f:"n/d",li:"https://www.linkedin.com/company/constructor-group/",lk:"No McKinsey/INSEAD alumni found",gdd:"2.8/5 (30 reviews): a caution flag",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Pfiffner Group",u:"https://www.pfiffner-group.com",g:1,e:"sme",p:14,ind:"Energy & grid",d:"Instrument transformers and busbars; bottleneck components for every new substation",t:"Family SME",l:"Hirschthal",km:40,rev:"n/d",emp:"several hundred",o:"Family-owned since 1953",ma:"Haefely Test (2019)",f:"n/d",li:"https://www.linkedin.com/company/pfiffner-group/",lk:"No alumni found; 11 open positions Q2 2026",ben:"No published data; assume market average"},
+{n:"Abacus Research",u:"https://www.abacus.ch",g:3,e:"sme",p:15,ind:"Software & AI",d:"Dominant Swiss SME ERP (65,000+ customers), investing visibly in AI",t:"Founder-owned software firm",l:"Wittenbach",km:55,rev:"~$80m+",emp:"~570",o:"Four founders, majority secured for 10+ years",ma:"DeepCloud AI spin-off (2021); 17% of AI firm Artificialy (2025)",f:"n/d",li:"https://www.linkedin.com/company/abacus-research-ag/",lk:"No alumni found; engineering job openings +200% YoY, sales +15%",gdd:"3.5/5 (19 reviews)",ben:"No published data; assume market average",jn:"No open positions; spontaneous applications invited (Aug 2026)"},
+{n:"Scandit",u:"https://www.scandit.com",g:1,e:"scale",p:16,ind:"Software & AI",d:"Computer-vision data capture unicorn",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"~500+",o:"VC-backed (Warburg Pincus, GV, G2VP)",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/scandit/",lk:"2 ex-McKinsey and 1 INSEAD alum",gdd:"4.0/5 (141 reviews)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Verity",u:"https://verity.net",g:1,e:"scale",p:17,ind:"Industrial & automation",d:"Autonomous indoor inventory drones for warehouses (IKEA deployments); ~$76m raised",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"growing",o:"Founder-led (Raffaello D'Andrea)",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/verity-ag/",lk:"1 ex-McKinsey (Singapore)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Sika",u:"https://www.sika.com",g:2,e:"corp",p:18,ind:"Buildings & construction",d:"Construction chemicals compounder; one of Switzerland's most active acquirers",t:"Corporate, listed",l:"Baar",km:30,rev:"~CHF 11.8bn",emp:"~34,000",o:"Listed",ma:"Multiple acquisitions per year",f:"Romuald Burkard Foundation (charitable)",li:"https://www.linkedin.com/company/sika/",lk:"3 ex-McKinsey (2 in Zurich) and 14 INSEAD alumni (6 in CH)",gdd:"3.8/5 (~500 reviews)",ben:"Salary: no CH data published; leave: statutory assumed",j:[{t:"Corporate Business Development Manager Wind Repair, Widen AG",u:"https://www.sika.com/en/career/jobs/job-posting-page/jid-de410b81-f519-49db-80e6-988453da3db1.html"}],jn:"47 CH postings scanned (Aug 2026); one BD fit"},
+{n:"Oetiker",u:"https://www.oetiker.com",g:1,e:"sme",p:19,ind:"Industrial & automation",d:"Near-monopoly niche in clamps and connectors; EV thermal and hydrogen exposure",t:"Family mid-cap",l:"Horgen",km:30,rev:"~$400m (est.)",emp:"~1,800",o:"Family holding",ma:"AD Plast, Sweden (2024)",f:"Oetiker-Stiftung: charitable",li:"https://www.linkedin.com/company/oetiker-group/",lk:"1 ex-McKinsey and 1 INSEAD alum, both Switzerland-based",gdd:"3.8/5 (35 reviews)",ben:"No published data; assume market average",jn:"No relevant openings (Aug 2026)"},
+{n:"Baumer",u:"https://www.baumer.com",g:2,e:"sme",p:20,ind:"Industrial & automation",d:"Family sensor group, growing and acquiring; live leadership openings",t:"Family mid-cap",l:"Frauenfeld",km:30,rev:">CHF 500m",emp:"~2,800",o:"Family-owned, 2nd generation",ma:"X-Sensors (2025)",f:"n/d",li:"https://www.linkedin.com/company/baumer-group/",lk:"1 INSEAD alum (Milan-based managing director)",gdd:"3.8/5 (46 reviews)",ben:"No published data; assume market average",j:[{t:"Leiter Business Unit Sensorik, Frauenfeld (P&L, portfolio, international growth)",u:"https://jobs.baumer.com/offene-stellen/leiter-business-unit-sensorik-a/548137fc-80ba-4ca2-ae78-b3d96299354d"},{t:"Head of Sales Central Europe, Frauenfeld",u:"https://jobs.baumer.com/offene-stellen/head-of-sales-central-europe-a/b946d55d-103c-46f0-9d82-20eebb6c2383"},{t:"Business Development Manager Motion Control, Frauenfeld",u:"https://jobs.baumer.com/offene-stellen/business-development-manager-motion-control-a/9b9e3efb-af8e-4631-b335-eed4f27ace49"}]},
+{n:"EthonAI",u:"https://ethon.ai",g:3,e:"scale",p:21,ind:"Industrial & automation",d:"AI manufacturing analytics (ETH spin-off; Siemens and Lindt as customers); ~$18m raised, Index-led",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"growing",o:"Founder-led; Index Ventures",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/ethonai/",lk:"No alumni; notably employs Deployment Strategists (forward-deployed commercial model)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Jua",u:"https://www.jua.ai",g:3,e:"scale",p:22,ind:"Software & AI",d:"AI foundation models of the physical world (weather for energy trading); ~$30m raised",t:"Scale-up",l:"Zurich",km:15,rev:"n/d",emp:"small",o:"Founder-led; 468 Capital, Ananda Impact Ventures",ma:"n/d",f:"n/d",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Jacobs Capital (ex Jacobs Holding)",u:"https://jacobscap.com",g:4,e:"inv",p:23,ind:"Investment",d:"Zurich investment firm whose economic beneficiary is the Jacobs Foundation (education)",t:"Family investment firm",l:"Zurich",km:15,rev:"multi-bn AuM",emp:"small team",o:"Jacobs family legacy",ma:"Portfolio activity ongoing",f:"Jacobs Foundation as beneficiary",li:"https://www.linkedin.com/company/jacobs-holding-ag/",lk:"1 INSEAD alum",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed",jn:"No live vacancies (Aug 2026)"},
+{n:"Schneeberger",u:"https://www.schneeberger.com",g:1,e:"sme",p:24,ind:"Semiconductors & optics",d:"Linear guideways and positioning inside semiconductor equipment",t:"Family mid-cap",l:"Roggwil BE",km:50,rev:"~CHF 350m+",emp:"n/d",o:"Family-owned since 1923",ma:"None found",f:"n/d",li:"https://www.linkedin.com/company/schneeberger-inc./",lk:"No alumni found",ben:"No published data; assume market average"},
+{n:"Belimo",u:"https://www.belimo.com",g:2,e:"corp",p:25,ind:"Buildings & construction",d:"HVAC actuators and valves; data centers ~24% of sales and climbing",t:"Corporate, listed (foundation anchor)",l:"Hinwil",km:20,rev:"~CHF 1.1bn (2025)",emp:"~2,400",o:"Linsi Foundation ~20% anchor",ma:"Opera Electronics (2020); Italy minority buyout (2024)",f:"n/d (the Linsi Foundation is an ownership vehicle, see Ownership)",li:"https://www.linkedin.com/company/belimo/",lk:"7 ex-McKinsey (5 in Zurich) and 13 INSEAD alumni (5 in CH): demonstrably hires this profile",gdd:"4.3/5 (66 reviews)",ben:"Salary: 13th salary plus all-employee bonus; paternity 2 weeks at 100% or 3 weeks at 80%; up to 3 days/week remote",jn:"Current Hinwil vacancies are technical (Aug 2026)"},
+{n:"Sonova",u:"https://www.sonova.com",g:2,e:"corp",p:26,ind:"Healthcare",d:"World leader in hearing care; AI-powered audiology push",t:"Corporate, listed",l:"Stäfa",km:25,rev:"~CHF 3.9bn",emp:"~18,000",o:"Listed; founder-family anchor",ma:"Audiological care chains, tech bolt-ons",f:"Hear the World Foundation: charitable",li:"https://www.linkedin.com/company/sonovagroup/",lk:"11 ex-McKinsey (5 in Zurich) and 30 INSEAD alumni (16 in CH): densest consultant-alumni employer on this list",gdd:"3.5/5 (~555 reviews)",ben:"Salary: no data published; own day-care at Stäfa HQ; part-time and job-share supported",j:[{t:"Director Performance Management and Capabilities Building (Academies), Stäfa (posted 14 Aug 2026)",u:"https://jobs.sonova.com/job/Staefa-Director%2C-Performance-Management-and-Capabilities-Building-%28Academies%29/1385671733/"}],jn:"37 Stäfa postings scanned; Corporate Development/M&A sits in the US"},
+{n:"Bruderer",u:"https://www.bruderer.com",g:1,e:"sme",p:27,ind:"Industrial & automation",d:"High-speed stamping presses for e-motor laminations and battery contacts",t:"Family SME",l:"Frasnacht",km:50,rev:"CHF 150-180m (est.)",emp:"~460",o:"Family holding since 1943",ma:"None found",f:"n/d",ben:"No published data; assume market average"},
+{n:"Fisba",u:"https://fisba.com",g:1,e:"sme",p:28,ind:"Semiconductors & optics",d:"Precision optics for chip inspection, defense and medical lasers",t:"Family SME",l:"St. Gallen",km:55,rev:"n/d",emp:"few hundred",o:"Founding family plus co-investor",ma:"Gray Optics, USA (2023)",f:"n/d",ben:"No published data; assume market average"},
+{n:"Sauter, Bachmann",u:"https://www.sauterbachmann.ch",g:1,e:"sme",p:29,ind:"Industrial & automation",d:"Precision gears riding the aerospace/defense ramp, investor-backed since 2022",t:"Investor-backed SME",l:"Netstal",km:45,rev:"n/d",emp:"~200",o:"SIC Group + founding family + management",ma:"Investor succession entry (2022)",f:"n/d",ben:"No published data; assume market average"},
+{n:"Thermoplan",u:"https://www.thermoplan.ch",g:1,e:"sme",p:30,ind:"Consumer & food",d:"Builds Starbucks' machines worldwide; diversification and China are the stated agenda",t:"Family SME",l:"Weggis",km:55,rev:"n/d",emp:"~500",o:"Founding family; CEO holds ~20%",ma:"Selecta partnership (2022); new HQ (2024)",f:"n/d",li:"https://www.linkedin.com/company/thermoplan-ag/",lk:"No alumni; marketing +20% and QA +27% YoY while sales headcount -13%",gdd:"4.0/5 (few reviews)",ben:"No published data; assume market average",jn:"Only mid-level sales posted (Aug 2026); senior mandates shaped with the owners"},
+{n:"Bühler Group",u:"https://www.buhlergroup.com",g:2,e:"sme",p:31,ind:"Industrial & automation",d:"Family-owned food-processing technology leader with a renowned innovation and education campus",t:"Family-owned corporate",l:"Uzwil",km:50,rev:"~CHF 3bn",emp:"~12,500",o:"Family, 5th generation",ma:"Selective bolt-ons",f:"Major apprenticeship/education programs",li:"https://www.linkedin.com/company/buhler/",lk:"3 ex-McKinsey and 5 INSEAD alumni",gdd:"3.9/5 Uzwil (4.4 worldwide)",ben:"Salary: no data published; leave: statutory assumed; strong training and mobility",jn:"33 CH postings scanned (Aug 2026), all technical/HR"},
+{n:"Givaudan",u:"https://www.givaudan.com",g:2,e:"corp",p:32,ind:"Consumer & food",d:"World leader in fragrances and taste; Zurich Innovation Centre in Kemptthal",t:"Corporate, listed",l:"Kemptthal (HQ Geneva)",km:15,rev:"~CHF 7.4bn",emp:"~16,000",o:"Listed",ma:"Serial acquirer in taste and wellbeing",f:"Givaudan Foundation: charitable",li:"https://www.linkedin.com/company/givaudan/",lk:"2 ex-McKinsey (1 in UAE) and 16 INSEAD alumni (9 in CH)",gdd:"4.0/5 (~1,000 reviews)",ben:"Salary: no data published, Fair-ON-Pay certified; 50% health-insurance contribution; leave: statutory assumed",jn:"27 CH postings scanned (Aug 2026), none in strategy; Kemptthal has an operations internship pool"},
+{n:"PG3",u:"https://pg3.ch",g:4,e:"inv",p:33,ind:"Investment",d:"The Partners Group founders' family office; large direct investments",t:"Family office",l:"Steinhausen",km:30,rev:"n/d",emp:"professional team",o:"Partners Group founders",ma:"Direct deals ongoing",f:"n/d",li:"https://www.linkedin.com/company/pg3ag/",lk:"No alumni found",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Hoval",u:"https://www.hoval.com",g:1,e:"sme",p:34,ind:"Buildings & construction",d:"Heat pumps and district heating; investing heavily in capacity",t:"Family mid-cap",l:"Vaduz",km:60,rev:"CHF 500-600m",emp:"~2,000+",o:"Founding family",ma:"None 2020-26; organic build-out",f:"Donor of a Liechtenstein community foundation",li:"https://www.linkedin.com/company/hoval-aktiengesellschaft/",lk:"1 ex-McKinsey (Liechtenstein); no INSEAD alumni",gdd:"3.9/5 (28 reviews)",ben:"No published data; assume market average",j:[{t:"Produktmanager Wärmeerzeugung, Vaduz (mid-level)",u:"https://www.hoval.com/en/job/3958"}]},
+{n:"Kistler",u:"https://www.kistler.com",g:2,e:"sme",p:35,ind:"Industrial & automation",d:"Family sensor maker pivoting from hardware to data; new CEO era since 2025",t:"Family mid-cap",l:"Winterthur",km:20,rev:"CHF 424m (flat)",emp:"~2,000",o:"Majority with owner family; new external CEO",ma:"Crash-test software acquisition (2024)",f:"n/d",li:"https://www.linkedin.com/company/kistler/",lk:"3 INSEAD alumni, all Switzerland-based",gdd:"3.3/5 (64 reviews)",ben:"Salary: no data published; parental leave topped up to 100%; 25+ vacation days; 2 days/week remote",jn:"Corporate Development team exists but no live CH vacancy (Aug 2026)"},
+{n:"Holcim",u:"https://www.holcim.com",g:2,e:"corp",p:36,ind:"Buildings & construction",d:"Building materials group reinventing itself around decarbonization",t:"Corporate, listed",l:"Zug",km:30,rev:"~CHF 16bn",emp:"~45,000",o:"Listed",ma:"US business spun off (2025); specialty bolt-ons",f:"Holcim Foundation for Sustainable Construction",li:"https://www.linkedin.com/company/holcim/",lk:"8 ex-McKinsey and 42 INSEAD alumni (14 in CH, 6 in Zug): heavy INSEAD hirer",gdd:"3.7/5 (~1,860 reviews)",ben:"Salary: no senior data published; maternity 14-24 weeks at full pay, 10 days paternity",j:[{t:"Global Head of Specification Selling, Zug",u:"https://careers.holcimgroup.com/job/Zug-Global-Head-of-Specification-Selling-6300/1367627357/"},{t:"Head of Ready to Operate CCUS, Zug",u:"https://careers.holcimgroup.com/job/Zug-Head-of-Ready-to-Operate-CCUS-6300/1357793157/"}]},
+{n:"Dormakaba",u:"https://www.dormakabagroup.com",g:2,e:"corp",p:37,ind:"Buildings & construction",d:"CHF 2.8bn access-solutions group mid-turnaround; buying data-center access tech",t:"Corporate, listed (family anchor)",l:"Rümlang",km:15,rev:"~CHF 2.8bn",emp:"~16,000",o:"Founding-family pool ~28% of votes",ma:"TANlock, Safetrust, van den Berg (2025); Mesker divested (2022)",f:"n/d",li:"https://www.linkedin.com/company/dormakaba/",lk:"8 ex-McKinsey (3 in Zurich metro) and 13 INSEAD alumni",gdd:"3.3/5 (506 reviews)",ben:"Salary: no data published, below-average Glassdoor comp rating; leave: statutory assumed",j:[{t:"VP Product Management Access Hardware Solutions, Rümlang (posted 20 Jul 2026)",u:"https://jobs.dormakaba.com/job/R%C3%BCmlang-VP-Product-Management-Access-Hardware-Solutions-%28mfd%29/1416863933/"},{t:"Plant Manager / Deputy VP Operations, Wetzikon",u:"https://jobs.dormakaba.com/job/Wetzikon-Plant-Manager-Deputy-Vice-President-Operations-%28mwd%29/1418667733/"}]},
+{n:"Brack.Alltron",u:"https://brackalltron.ch",g:3,e:"corp",p:38,ind:"Commerce & logistics",d:"Largest independent Swiss e-commerce and distribution group, professionalizing under its founder",t:"Founder-owned corporate",l:"Mägenwil",km:30,rev:"~CHF 1.1bn",emp:"~1,300",o:"Founder-owned 100%",ma:"Medidor (2020), Schoch Vögtli (2022); group renamed 2024/25",f:"n/d",li:"https://www.linkedin.com/company/brackalltron/",lk:"1 ex-McKinsey and 4 INSEAD alumni (Zurich metro)",ben:"Salary: no data published; maternity 18 weeks, paternity 4 weeks; 5-7 weeks vacation",jn:"A BD posting under the Head of Strategy, BD & PMO closed recently: that team hires. Watch jobs.brackalltron.ch"},
+{n:"Kühne+Nagel",u:"https://home.kuehne-nagel.com",g:2,e:"corp",p:39,ind:"Commerce & logistics",d:"Global logistics leader controlled from Schindellegi; the Kühne Foundation funds logistics education",t:"Corporate, listed (family majority)",l:"Schindellegi",km:30,rev:"~CHF 25bn",emp:"~80,000",o:"Majority founder family",ma:"Active logistics bolt-ons",f:"Kühne Foundation: logistics education",li:"https://www.linkedin.com/company/kuehne-nagel/",lk:"4 ex-McKinsey and 8 INSEAD alumni: low density for its size",gdd:"2.8/5 (~2,000 reviews): weak",ben:"Salary: VP ~CHF 257k (small Glassdoor sample); leave: statutory assumed",jn:"Only 7 CH postings (Aug 2026), none relevant"},
+{n:"Ufenau Capital Partners",u:"https://www.ufenau.com",g:4,e:"inv",p:40,ind:"Investment",d:"Service-company buy-and-build specialist (DACH), high deal cadence",t:"PE fund",l:"Pfäffikon SZ",km:30,rev:"n/d",emp:"professional team",o:"Partner-owned",ma:"High deal cadence",f:"n/d",li:"https://www.linkedin.com/company/ufenau-capital-partners-ag/",lk:"3 ex-McKinsey and 3 INSEAD alumni",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Winterberg Group",u:"https://winterberg.group",g:4,e:"inv",p:41,ind:"Investment",d:"Buys DACH SME successions and places managers into portfolio companies",t:"SME buyout platform",l:"Zug",km:30,rev:"n/d",emp:"small team",o:"Partner-owned",ma:"Ongoing SME deals",f:"n/d",li:"https://www.linkedin.com/company/winterberg-group/",lk:"No alumni found",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Capvis",u:"https://www.capvis.com",g:4,e:"inv",p:42,ind:"Investment",d:"Swiss mid-market private equity",t:"PE fund",l:"Baar",km:30,rev:"n/d",emp:"professional team",o:"Partner-owned",ma:"Buyouts ongoing",f:"n/d",li:"https://www.linkedin.com/company/capvis/",lk:"No alumni visible on the page",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Invision",u:"https://www.invision.ch",g:4,e:"inv",p:43,ind:"Investment",d:"Swiss mid-market PE, services and consumer",t:"PE fund",l:"Zug",km:30,rev:"n/d",emp:"professional team",o:"Partner-owned",ma:"Buyouts ongoing",f:"n/d",li:"https://www.linkedin.com/company/invision-private-equity/",lk:"2 INSEAD alumni (Zug)",gdd:"1-2 reviews only",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Frontify",u:"https://www.frontify.com",g:1,e:"scale",p:44,ind:"Software & AI",d:"Brand-management SaaS",t:"Scale-up",l:"St. Gallen",km:55,rev:"n/d",emp:"~300",o:"VC-backed (Insight Partners, Revaia)",ma:"n/d",f:"n/d",li:"https://www.linkedin.com/company/frontify/",lk:"1 INSEAD alum (London)",gdd:"4.2/5 (56 reviews)",ben:"Salary: below corporate cash levels, equity on top; leave: statutory assumed"},
+{n:"Georg Fischer",u:"https://www.georgfischer.com",g:2,e:"corp",p:45,ind:"Industrial & automation",d:"175-year-old industrial group transformed into a flow-solutions leader",t:"Corporate, listed",l:"Schaffhausen",km:40,rev:"~CHF 5bn",emp:"~20,000",o:"Listed",ma:"Uponor acquisition (2023); machining divestment",f:"Corporate culture foundations",li:"https://www.linkedin.com/company/georg-fischer/",lk:"8 ex-McKinsey (6 in CH) and 9 INSEAD alumni",gdd:"3.6/5 (147 reviews)",ben:"Salary: no data published; own pension fund; flexible hours",j:[{t:"Business Developer VAG Portfolio, Schaffhausen (stale posting)",u:"https://georgfischer.wd103.myworkdayjobs.com/en-US/GeorgFischer_Careers/job/Schaffhausen/Business-Developer-VAG-Portfolio--m-f-d-_JR08951-1"}]},
+{n:"Seven-Air",u:"https://www.seven-air.ch",g:1,e:"sme",p:46,ind:"Buildings & construction",d:"Swiss leader in air-handling units; data center cooling tailwind",t:"Family SME",l:"Hitzkirch",km:45,rev:"n/d",emp:"~400",o:"Family, 2nd generation",ma:"Vertical integration (2024)",f:"n/d",ben:"No published data; assume market average"},
+{n:"Lanz Oensingen",u:"https://lanz-oens.ch",g:1,e:"sme",p:47,ind:"Energy & grid",d:"Busbar trunking: how power moves inside data centers",t:"Family SME",l:"Oensingen",km:45,rev:"n/d",emp:"~100",o:"Family, 2nd generation",ma:"None found",f:"n/d",ben:"No published data; assume market average"},
+{n:"BBC Cellpack",u:"https://bbcgroup.com",g:1,e:"sme",p:48,ind:"Energy & grid",d:"Medium-voltage cable accessories; consumable exposure to grid buildout",t:"Family SME",l:"Villmergen",km:35,rev:"n/d",emp:"~250",o:"Entrepreneur family 91% + charitable foundation 9%",ma:"Internal restructuring (2024)",f:"Dreifuss Foundation: charitable (youth education)",ben:"No published data; assume market average"},
+{n:"Swiss KMU Partners / SIC Group",u:"https://www.skpag.ch",g:4,e:"inv",p:49,ind:"Investment",d:"Family-office capital for Swiss SME successions",t:"SME investor",l:"Rapperswil-Jona",km:30,rev:"n/d",emp:"small team",o:"Multi-family",ma:"Sauter Bachmann (2022)",f:"n/d",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed",jn:"Welcomes unsolicited applications per its own site"},
+{n:"Roger Federer Foundation",u:"https://federerfoundation.org",g:5,e:"fnd",p:50,ind:"Education",d:"Early-childhood and basic education in six Southern African countries and Switzerland; 13 staff, Zurich HQ",t:"Foundation",l:"Zurich",km:15,rev:"n/d",emp:"13",o:"Roger Federer (board president); CEO Maya Ziswiler",ma:"n/d",f:"This is the foundation",li:"https://www.linkedin.com/company/roger-federer-foundation/",lk:"No alumni (team of ~13)",ben:"Salary: typically below market; leave: statutory assumed"},
+{n:"Kühne Foundation",u:"https://www.kuehne-stiftung.org",g:5,e:"fnd",p:51,ind:"Education",d:"Klaus-Michael Kühne's foundation: funds logistics education (Kühne Logistics University), humanitarian logistics and climate programs",t:"Foundation",l:"Schindellegi",km:30,rev:"n/d",emp:"small team",o:"Kühne family",ma:"n/d",f:"This is the foundation",ben:"Salary: typically below market; leave: statutory assumed"},
+{n:"elea Foundation",u:"https://www.elea.org",g:5,e:"fnd",p:52,ind:"Education",d:"Professional impact investing in inclusive education and employability ventures",t:"Impact foundation",l:"Zurich",km:15,rev:"n/d",emp:"small team",o:"Founder-family endowment",ma:"Portfolio ongoing",f:"This is the foundation",li:"https://www.linkedin.com/company/elea-foundation-for-ethics-in-globalization/",lk:"2 ex-McKinsey (Zurich and Johannesburg)",ben:"Salary: typically below market; leave: statutory assumed",jn:"Talent Program recruits its first cohort in 2026"},
+{n:"Müller-Möhl Foundation / Group",u:"https://mm-foundation.org/en/",g:5,e:"fnd",p:53,ind:"Education",d:"Education policy, early childhood, women's economic participation; investment office alongside",t:"Foundation + family office",l:"Zurich",km:15,rev:"n/d",emp:"small team",o:"Principal-led",ma:"n/d",f:"This is the foundation",li:"https://www.linkedin.com/company/mullermohlfoundation/",lk:"Team under 10; approach runs via the principal",ben:"Salary: typically below market; leave: statutory assumed"},
+{n:"Hemma Group",u:"https://hemma-group.com",g:5,e:"inv",p:54,ind:"Education",d:"Family investment firm with education and training among its sectors",t:"Family office",l:"Zurich",km:15,rev:"n/d",emp:"small team",o:"Principal-led",ma:"n/d",f:"n/d",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Verium",u:"https://verium.ch/en/",g:4,e:"inv",p:55,ind:"Investment",d:"Entrepreneur-backed office doing direct SME and infrastructure deals",t:"Multi-family office",l:"Zurich",km:15,rev:"n/d",emp:"small team",o:"Entrepreneur families",ma:"Club deals ongoing",f:"n/d",ben:"Salary: typically CHF 200k+ with bonus or carry; leave: statutory assumed"},
+{n:"Barry Callebaut",u:"https://www.barry-callebaut.com",g:2,e:"corp",p:56,ind:"Consumer & food",d:"World's largest B2B chocolate maker, mid-restructuring amid the cocoa price crisis",t:"Corporate, listed (family anchor)",l:"Zurich",km:15,rev:"~CHF 10bn+",emp:"~13,000",o:"Listed; Jacobs family anchor ~30%",ma:"Footprint consolidation under BC Next Level",f:"Cocoa Horizons Foundation",li:"https://www.linkedin.com/company/barry-callebaut-group/",lk:"5 ex-McKinsey (2 in Zurich) and 12 INSEAD alumni",gdd:"3.4/5 (~570 reviews)",ben:"No published data; assume market average",j:[{t:"Business Development Manager CEE and MEA, Zurich",u:"https://jobs.barry-callebaut.com/job/Zurich-Business-Development-Manager-CEE%26MEA-8005/1407656600/"},{t:"Commercial Excellence Manager FM and Specialties, Zurich",u:"https://jobs.barry-callebaut.com/job/Zurich-Commercial-Excellence-Manager-FM-%26-Specialties-8005/1387640800/"}]},
+{n:"Ernst Schweizer",u:"https://www.ernstschweizer.ch",g:1,e:"sme",p:57,ind:"Buildings & construction",d:"Solar mounting and building envelope; young owner refocusing the portfolio",t:"Family SME",l:"Hedingen",km:30,rev:"~CHF 200m (est.)",emp:"n/d",o:"4th-generation owner-CEO since 2023",ma:"Facades division sold (2024); PV joint venture (2021)",f:"Ernst Schweizer-Stiftung: charitable",ben:"No published data; assume market average"},
+{n:"Jansen",u:"https://www.jansen.com",g:1,e:"sme",p:58,ind:"Buildings & construction",d:"Steel profiles and geothermal probes; unusually active in corporate development",t:"Family SME",l:"Oberriet",km:50,rev:"n/d",emp:"n/d",o:"Family, 3rd generation",ma:"Automotive exit (2021); two bolt-ons (2021, 2023)",f:"Josef Jansen-Stiftung: charitable, education",gdd:"3.7/5",ben:"No published data; assume market average"},
+{n:"Ferag",u:"https://www.ferag.com",g:1,e:"sme",p:59,ind:"Commerce & logistics",d:"Family group pivoting from print machinery to warehouse automation; acquired an AI software firm",t:"Family mid-cap",l:"Hinwil",km:20,rev:"n/d",emp:"n/d",o:"Founding family",ma:"Warehouse-automation AI software acquired (2023); holding restructured 2024/25",f:"Entrepreneurship forum foundation",li:"https://www.linkedin.com/company/ferag-solutions/",lk:"No alumni found (group split across Ferag Solutions and Ferag Technologies pages)",ben:"No published data; assume market average"},
+{n:"Georg Utz",u:"https://www.utzgroup.com",g:1,e:"sme",p:60,ind:"Commerce & logistics",d:"Returnable containers for warehouse automation; entering the US",t:"Family mid-cap",l:"Bremgarten",km:30,rev:"~$370m",emp:"~1,400",o:"Family plus long-term co-shareholders",ma:"Organic; US plant from 2028",f:"n/d",li:"https://www.linkedin.com/company/utzgroup/",lk:"No alumni found",ben:"No published data; assume market average",jn:"No relevant openings (Aug 2026)"},
+{n:"Model Group",u:"https://www.modelgroup.com",g:1,e:"sme",p:61,ind:"Commerce & logistics",d:"Corrugated packaging riding e-commerce; nearly CHF 1bn family group",t:"Family mid-cap",l:"Weinfelden",km:35,rev:"CHF 936m",emp:"n/d",o:"100% family, 4th generation",ma:"German paper mill acquired (2021)",f:"n/d",li:"https://www.linkedin.com/company/model-ag/",lk:"No alumni found",ben:"No published data; assume market average"}
+];
+
+const SB_URL="https://tuejuswacvvoyxzwhfft.supabase.co";
+const SB_KEY="sb_publishable_bSvDcaN-CrNTJdYaOvO6WA_-EgCOtJr";
+const RX_ON = !SB_URL.includes("__SUPABASE");
+let REACT=[];
+const SBH={apikey:SB_KEY};
+async function loadReactions(){if(!RX_ON)return;try{const r=await fetch(SB_URL+"/rest/v1/reactions?select=company,type,name",{headers:SBH});if(r.ok){REACT=await r.json();render()}}catch(e){}}
+function myName(){let n=localStorage.getItem("st_name");if(!n){n=(prompt("Your name (shown with your reactions):")||"").trim();if(n)localStorage.setItem("st_name",n)}return n}
+function rxHtml(c){if(!RX_ON)return "";
+  const ic=REACT.filter(r=>r.company===c&&r.type==="intro"),fc=REACT.filter(r=>r.company===c&&r.type==="fit");
+  const me=localStorage.getItem("st_name")||"";
+  const b=(t,arr,sym,tip)=>'<button class="rx'+(arr.some(r=>r.name===me)?" on":"")+'" data-c="'+c.replace(/"/g,"&quot;")+'" data-t="'+t+'" title="'+tip+(arr.length?": "+arr.map(r=>r.name).join(", "):"")+'" onclick="event.stopPropagation();toggleRx(this)">'+sym+(arr.length?'<span class="n">'+arr.length+"</span>":"")+"</button>";
+  return b("intro",ic,"\u2764\ufe0f","I can make an introduction")+b("fit",fc,"\u2b50","I think this is a great fit");}
+async function toggleRx(btn){const c=btn.dataset.c,t=btn.dataset.t,n=myName();if(!n)return;
+  const mine=REACT.find(r=>r.company===c&&r.type===t&&r.name===n);
+  try{if(mine){await fetch(SB_URL+"/rest/v1/reactions?company=eq."+encodeURIComponent(c)+"&type=eq."+t+"&name=eq."+encodeURIComponent(n),{method:"DELETE",headers:SBH});}
+  else{await fetch(SB_URL+"/rest/v1/reactions",{method:"POST",headers:{...SBH,"Content-Type":"application/json"},body:JSON.stringify({company:c,type:t,name:n})});}
+  await loadReactions();}catch(e){alert("Could not save the reaction; check your connection and try again")}}
+const state={e:"all",i:"all",g:"all",q:"",jobs:false};
+const $=s=>document.querySelector(s);
+
+function render(){
+  const q=state.q.toLowerCase();
+  const rows=D.filter(x=>
+    (state.e==="all"||x.e===state.e)&&
+    (state.i==="all"||x.ind===state.i)&&
+    (state.g==="all"||x.g===+state.g)&&
+    (!state.jobs||(x.j&&x.j.length))&&
+    (!q||[x.n,x.d,x.l,x.o,x.t,x.ind,x.ma,x.f,x.jn||"",(x.j||[]).map(y=>y.t).join(" ")].join(" ").toLowerCase().includes(q))
+  );
+  $("#count").textContent=rows.length+" of "+D.length+" shown";
+  const list=$("#list");list.innerHTML="";
+  if(!rows.length){list.innerHTML='<div class="empty">Nothing matches. Clear a filter or shorten the search.</div>';return}
+  EORDER.forEach(e=>{
+    const grp=rows.filter(x=>x.e===e).sort((a,b)=>a.p-b.p);
+    if(!grp.length)return;
+    const h=document.createElement("h2");h.textContent=ETYPES[e][0];list.appendChild(h);
+    const gs=document.createElement("div");gs.className="gsub";gs.textContent=ETYPES[e][1];list.appendChild(gs);
+    const wrap=document.createElement("div");wrap.className="tblwrap";
+    const tbl=document.createElement("table");
+    tbl.innerHTML="<colgroup><col style=\"width:5%\"><col style=\"width:17%\"><col style=\"width:11%\"><col style=\"width:29%\"><col style=\"width:20%\"><col style=\"width:11%\"><col style=\"width:7%\"></colgroup><thead><tr><th>React</th><th>Company</th><th>Industry</th><th>Business</th><th>Potential role</th><th>Location</th><th>Openings</th></tr></thead>";
+    const tb=document.createElement("tbody");
+    grp.forEach(x=>{
+      const tr=document.createElement("tr");tr.className="main";tr.setAttribute("aria-expanded","false");tr.tabIndex=0;
+      const site=x.u?'<a href="'+x.u+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'+x.u.replace(/^https?:\/\/(www\.)?/,"").replace(/\/.*$/,"")+"</a>":"";
+      const liLink=x.li?'<a href="'+x.li+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">LinkedIn</a>':'';
+      tr.innerHTML='<td class="rk">'+rxHtml(x.n)+'</td><td class="co">'+x.n+site+liLink+'</td><td class="ind">'+x.ind+'</td>'+
+        '<td class="desc">'+x.d+'</td><td class="role">'+GSHORT[x.g]+'</td><td class="loc">'+x.l+"</td>"+
+                '<td class="jb" title="Relevant live openings">'+((x.j&&x.j.length)?"💼 "+x.j.length:"")+"</td>";
+      const det=document.createElement("tr");det.className="det";
+      let jhtml="";
+      if(x.j&&x.j.length)jhtml="<dt>Open roles</dt><dd>"+x.j.map(y=>'<a href="'+y.u+'" target="_blank" rel="noopener">'+y.t+"</a>").join("<br>")+"</dd>";
+      if(x.jn)jhtml+="<dt>Hiring status</dt><dd>"+x.jn+"</dd>";
+      det.innerHTML='<td colspan="7"><dl><dt>Growth rank</dt><dd>'+x.p+' of '+D.length+'</dd><dt>Type</dt><dd>'+x.t+"</dd><dt>Revenue</dt><dd>"+x.rev+
+        "</dd><dt>Employees</dt><dd>"+x.emp+"</dd><dt>M&amp;A 2020-26</dt><dd>"+x.ma+"</dd><dt>Ownership</dt><dd>"+x.o+"</dd>"+
+        (x.lk?"<dt>LinkedIn</dt><dd>"+x.lk+"</dd>":"")+(x.gdd?"<dt>Glassdoor</dt><dd>"+x.gdd+"</dd>":"")+
+        "<dt>Benefits</dt><dd>"+x.ben+"</dd>"+jhtml+"<dt>Affiliated foundation</dt><dd>"+x.f+"</dd></dl></td>";
+      const toggle=()=>{tr.setAttribute("aria-expanded",tr.getAttribute("aria-expanded")==="true"?"false":"true")};
+      tr.addEventListener("click",toggle);
+      tr.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();toggle()}});
+      tb.appendChild(tr);tb.appendChild(det);
+    });
+    tbl.appendChild(tb);wrap.appendChild(tbl);list.appendChild(wrap);
+  });
+}
+$("#q").addEventListener("input",e=>{state.q=e.target.value;render()});
+document.querySelectorAll("#types .chip").forEach(b=>b.addEventListener("click",()=>{
+  state.e=b.dataset.e;
+  document.querySelectorAll("#types .chip").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  render();
+}));
+document.querySelectorAll("#inds .chip").forEach(b=>b.addEventListener("click",()=>{
+  state.i=b.dataset.i;
+  document.querySelectorAll("#inds .chip").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  render();
+}));
+document.querySelectorAll("#rolesf .chip").forEach(b=>b.addEventListener("click",()=>{
+  state.g=b.dataset.g;
+  document.querySelectorAll("#rolesf .chip").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  render();
+}));
+$("#jobsonly").addEventListener("click",()=>{state.jobs=!state.jobs;$("#jobsonly").setAttribute("aria-pressed",state.jobs?"true":"false");render()});
+render();
+loadReactions();
+</script>
+
+</html>
