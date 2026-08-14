@@ -1,5 +1,5 @@
 <!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Swiss Targets</title></head>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>The Zurich Shortlist</title></head>
 <style>
 :root{
   --paper:#FAFAF7; --ink:#1E1E1C; --muted:#71716A; --line:#E5E5DE; --card:#FFFFFF;
@@ -23,6 +23,10 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .wrap{max-width:1100px;margin:0 auto;padding:30px 20px 80px}
 h1{font-size:26px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
 .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+.sub .lead{margin:0 0 8px;color:var(--ink);font-weight:600}
+.sub ul{margin:0 0 8px;padding-left:1.3em}
+.sub li{margin:3px 0}
+.sub .fine{margin:0;font-size:12.5px}
 .sub b{color:var(--ink)}
 .controls{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--ink);padding-top:14px;margin-bottom:6px}
 .crow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -36,7 +40,7 @@ input[type=search]:focus{outline:2px solid var(--link);outline-offset:1px}
 .klabel{font-size:13px;color:var(--muted);min-width:88px}
 .count{color:var(--muted);font-size:13px;margin:12px 0 0}
 h2{font-size:17px;font-weight:700;margin:30px 0 4px}
-.gsub{font-size:13px;color:var(--muted);margin:0 0 8px;max-width:80ch}
+.gsub{font-size:13px;color:var(--muted);margin:0 0 8px}
 .tblwrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;min-width:960px;font-size:13.5px;table-layout:fixed;margin-bottom:6px}
 th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:6px 10px 6px 4px;
@@ -66,12 +70,45 @@ tr.det a:hover{text-decoration:underline}
 .rx{border:none;background:none;padding:1px 2px;font-size:15px;cursor:pointer;filter:grayscale(1);opacity:.45}
 .rx.on,.rx:hover{filter:none;opacity:1}
 .rx .n{font-size:11px;color:var(--muted);margin-left:1px}
+.intro{margin-top:10px;font-size:13px}
+.intro a{color:var(--good);text-decoration:none;font-weight:600}
+.intro a:hover{text-decoration:underline}
 @media(prefers-reduced-motion:no-preference){tr.det td{animation:in .14s ease}@keyframes in{from{opacity:0}to{opacity:1}}}
+@media(max-width:700px){
+ .wrap{padding:20px 14px 60px}
+ table{min-width:0;table-layout:auto;font-size:14px}
+ thead{display:none}
+ tr.main{display:block;padding:10px 0;border-bottom:1px solid var(--line)}
+ tr.main td{display:inline;border:none;padding:0}
+ td.co{display:inline-block;font-size:15px;margin-right:8px}
+ td.co a{display:inline;margin-right:8px;font-size:12px}
+ td.rk{display:inline-block;margin-right:6px}
+ td.desc{display:block;margin-top:3px}
+ td.role{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+ td.ind,td.loc{display:inline-block;font-size:12px;margin-right:8px}
+ td.jb{display:inline-block;margin-left:4px}
+ tr.det{display:none}
+ tr.main[aria-expanded="true"]+tr.det{display:block}
+ tr.det td{display:block;padding:10px}
+ tr.det dl{grid-template-columns:96px 1fr;font-size:12.5px}
+ .klabel{min-width:100%}
+}
 </style>
 
 <div class="wrap">
-<h1>Swiss Targets</h1>
-<p class="sub"><b>A curated shortlist of companies and organizations in the greater Zurich area (within ~1.5h) with high growth potential and attractive senior leadership mandates</b>: growth and commercial leadership; strategy, M&amp;A and transformation; AI and product; investment; and foundation and education roles. Grouped by company type. The rank reflects an assessment of future growth potential; the briefcase icon marks organizations with relevant live openings (also a filter). How to use this page: click any row to open the company card (ownership, deal history, benefits, live openings). To the left of each company you can react: click the heart if you can make an introduction there, the star if you think this is a great fit. Your name is asked once and shown with your reaction; click again to remove it. Compiled 14 August 2026; LinkedIn data (alumni presence, hiring trends) added the same day.</p>
+<h1>The Zurich Shortlist</h1>
+<div class="sub">
+<p class="lead">A curated shortlist of companies, investors and foundations in the greater Zurich area with exciting senior mandates: growth and commercial leadership, strategy and M&amp;A, AI and product, investment, and education.</p>
+<ul>
+<li>Grouped by company type, sorted by growth potential; use the filters or the search box to navigate</li>
+<li>Click any row to open the company card: ownership, deal history, benefits, live openings</li>
+<li>&#10084;&#65039; click the heart if you could make an introduction at this company</li>
+<li>&#11088; click the star if you think it would be a great fit for Awa</li>
+<li>Your name is asked once and shown with your reaction; click again to undo</li>
+<li>&#128188; marks companies with relevant live openings (also available as a filter)</li>
+</ul>
+<p class="fine">Compiled 14 August 2026, including LinkedIn hiring data</p>
+</div>
 
 <div class="controls">
   <div class="crow">
@@ -196,7 +233,7 @@ const D=[
 
 const SB_URL="https://tuejuswacvvoyxzwhfft.supabase.co";
 const SB_KEY="sb_publishable_bSvDcaN-CrNTJdYaOvO6WA_-EgCOtJr";
-const RX_ON = !SB_URL.includes("__SUPABASE");
+const RX_ON=true;
 let REACT=[];
 const SBH={apikey:SB_KEY};
 async function loadReactions(){if(!RX_ON)return;try{const r=await fetch(SB_URL+"/rest/v1/reactions?select=company,type,name",{headers:SBH});if(r.ok){REACT=await r.json();render()}}catch(e){}}
