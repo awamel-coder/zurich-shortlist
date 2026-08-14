@@ -28,16 +28,17 @@ h1{font-size:26px;font-weight:700;letter-spacing:-.01em;margin:0 0 6px}
 .sub li{margin:3px 0}
 .sub .fine{margin:0;font-size:12.5px}
 .sub b{color:var(--ink)}
-.controls{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--ink);padding-top:14px;margin-bottom:6px}
+.controls{display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--line);padding-top:16px;margin-bottom:6px}
 .crow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-input[type=search]{flex:1 1 260px;padding:8px 12px;border:1px solid var(--line);border-radius:4px;
+input[type=search]{flex:1 1 260px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;
   background:var(--card);color:var(--ink);font:inherit;font-size:14px}
 input[type=search]:focus{outline:2px solid var(--link);outline-offset:1px}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:4px;
-  padding:5px 11px;font-size:13px;cursor:pointer;font-family:inherit}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;
+  padding:5px 14px;font-size:13px;cursor:pointer;font-family:inherit;transition:all .12s ease}
+.chip:hover{border-color:var(--muted);color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .chip:focus-visible{outline:2px solid var(--link);outline-offset:2px}
-.klabel{font-size:13px;color:var(--muted);min-width:88px}
+.klabel{font-size:11.5px;color:var(--muted);min-width:88px;text-transform:uppercase;letter-spacing:.06em}
 .count{color:var(--muted);font-size:13px;margin:12px 0 0}
 h2{font-size:17px;font-weight:700;margin:30px 0 4px}
 .gsub{font-size:13px;color:var(--muted);margin:0 0 8px}
@@ -80,13 +81,14 @@ tr.det a:hover{text-decoration:underline}
  thead{display:none}
  tr.main{display:block;padding:10px 0;border-bottom:1px solid var(--line)}
  tr.main td{display:inline;border:none;padding:0}
- td.co{display:inline-block;font-size:15px;margin-right:8px}
- td.co a{display:inline;margin-right:8px;font-size:12px}
- td.rk{display:inline-block;margin-right:6px}
- td.desc{display:block;margin-top:3px}
- td.role{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
- td.ind,td.loc{display:inline-block;font-size:12px;margin-right:8px}
- td.jb{display:inline-block;margin-left:4px}
+ td.rk{display:inline-block;vertical-align:middle;margin-right:6px;width:auto}
+ td.co{display:inline-block;font-size:15.5px}
+ td.co a{display:inline;margin-left:10px;font-size:12px}
+ td.ind{display:block;font-size:12px;margin-top:2px}
+ td.desc{display:block;margin:4px 0}
+ td.role{display:block;color:var(--muted);font-size:12.5px;margin-bottom:2px}
+ td.loc{display:inline-block;font-size:12px}
+ td.jb{display:inline-block;margin-left:10px}
  tr.det{display:none}
  tr.main[aria-expanded="true"]+tr.det{display:block}
  tr.det td{display:block;padding:10px}
@@ -98,16 +100,16 @@ tr.det a:hover{text-decoration:underline}
 <div class="wrap">
 <h1>The Zurich Shortlist</h1>
 <div class="sub">
-<p class="lead">A curated shortlist of companies, investors and foundations in the greater Zurich area with exciting senior mandates: growth and commercial leadership, strategy and M&amp;A, AI and product, investment, and education.</p>
+<p class="lead">A curated shortlist of exciting companies, investors and foundations in the greater Zurich area.</p>
 <ul>
-<li>Grouped by company type, sorted by growth potential; use the filters or the search box to navigate</li>
-<li>Click any row to open the company card: ownership, deal history, benefits, live openings</li>
-<li>&#10084;&#65039; click the heart if you could make an introduction at this company</li>
-<li>&#11088; click the star if you think it would be a great fit for Awa</li>
-<li>Your name is asked once and shown with your reaction; click again to undo</li>
-<li>&#128188; marks companies with relevant live openings (also available as a filter)</li>
+<li>Grouped by company type, ranked by growth potential; filter or search to navigate</li>
+<li>Click a row for details: ownership, deals, benefits, openings</li>
+<li>&#10084;&#65039; = you could make an introduction there</li>
+<li>&#11088; = you think it is a great fit for Awa</li>
+<li>Your name is asked once; click again to undo</li>
+<li>&#128188; = relevant live openings</li>
 </ul>
-<p class="fine">Compiled 14 August 2026, including LinkedIn hiring data</p>
+<p class="fine">Compiled 14 August 2026, incl. LinkedIn hiring data</p>
 </div>
 
 <div class="controls">
@@ -159,12 +161,12 @@ tr.det a:hover{text-decoration:underline}
 </div>
 
 <script>
-const ETYPES={corp:["Corporates","Listed or large private groups that hire senior strategy, M&A, transformation and growth leadership through established channels."],
-sme:["Family SMEs & mid-caps","Family- or founder-owned companies, mostly hidden champions with structural tailwinds (grid, data centers, automation, energy). Senior mandates here are usually shaped directly with the owners."],
-ai:["AI companies","Frontier AI labs with Zurich research offices."],
-scale:["Startups & scale-ups","Venture-backed companies (minimum ~$10m raised) with exceptional growth potential."],
-inv:["Investors","PE funds and family offices doing direct deals; relevant roles are investment, value creation and operating-partner positions, not wealth management."],
-fnd:["Foundations","Professional foundations, with a focus on education."]};
+const ETYPES={corp:["Corporates","Large groups hiring strategy, M&A, transformation and growth leadership through established channels"],
+sme:["Family SMEs & mid-caps","Family- and founder-owned hidden champions riding structural tailwinds: grid, data centers, automation, energy"],
+ai:["AI companies","Frontier AI labs with Zurich research offices"],
+scale:["Startups & scale-ups","Venture-backed companies ($10m+ raised) with exceptional growth potential"],
+inv:["Investors","PE funds and family offices doing direct deals in Swiss companies"],
+fnd:["Foundations","Professional foundations with an education focus"]};
 const EORDER=["sme","corp","ai","scale","inv","fnd"];
 const GSHORT={1:"Growth, commercial & strategy",2:"Strategy & M&A",3:"AI & product",4:"Investment",5:"Foundation & education"};
 const D=[
