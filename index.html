@@ -42,7 +42,6 @@ input[type=search]:focus{outline:2px solid var(--link);outline-offset:1px}
 .sec{--acc:#8C8C84}
 h2{font-size:17px;font-weight:700;margin:32px 0 4px;color:var(--ink);display:flex;align-items:center;gap:10px}
 h2::before{content:"";width:22px;height:2px;background:var(--link);flex:none}
-.gsub{font-size:13px;color:var(--muted);margin:0 0 10px;padding-left:32px}
 h1 .dot{color:#B23A2C}
 .tblwrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;min-width:960px;font-size:13.5px;table-layout:fixed;margin-bottom:6px}
@@ -241,7 +240,6 @@ function render(){
     if(!grp.length)return;
     const sec=document.createElement("section");sec.className="sec "+e;list.appendChild(sec);
     const h=document.createElement("h2");h.textContent=ETYPES[e][0];sec.appendChild(h);
-    const gs=document.createElement("div");gs.className="gsub";gs.textContent=ETYPES[e][1];sec.appendChild(gs);
     const wrap=document.createElement("div");wrap.className="tblwrap";
     const tbl=document.createElement("table");
     tbl.innerHTML="<colgroup><col style=\"width:5%\"><col style=\"width:17%\"><col style=\"width:11%\"><col style=\"width:29%\"><col style=\"width:20%\"><col style=\"width:11%\"><col style=\"width:7%\"></colgroup><thead><tr><th>React</th><th>Company</th><th>Industry</th><th>Business</th><th>Potential role</th><th>Location</th><th>Openings</th></tr></thead>";
